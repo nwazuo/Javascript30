@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: url('bg1.jpg');
+        }
+        html {box-sizing: border-box;}
+        *,*:before,*:after {box-sizing: inherit;}
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            transition: all 1s;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cover {
+            padding: 7px;
+            background: rgba(0,0,0,0.1);
+            border: 0;
+            border-radius: 15px;
+        }
+        .main {
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+            padding: 10px;
+            background: rgba(255,255,255,1);
+        }
+        .cover h1 {
+            font-family: 'Myriad Pro', sans-serif;
+            color: #c98d4c;
+            margin: 10px auto 5px auto;
+            padding: 0;
+            transition: all 0.5s;
+        }
+        .cover p {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+            font-family: 'Myriad Pro', sans-serif;
+            color: #999;
+        }
+        .picker {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .image {
+            /* flex: 1; */
+            opacity: 0.5;
+            width: 120px;
+            height: 62px;
+            border: 3px solid rgba(255,255,255,1);
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+            transition: 0.5s;
+        }
+        .picker img.active {
+            opacity: 1;
+            transform: scale(1.1);
+            transition: all 0.5s;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover">
+        <div class="main">
+            <h1>Background Image Picker</h1>
+            <p>Select a background image</p>
+            <div class="picker">
+                <img class="image active bg1" src="bg1.jpg" data-basecolor="brown"/>
+                <img class="image bg2" src="bg2.jpg" data-basecolor="teal" />
+                <img class="image bg3" src="bg3.jpg" data-basecolor="black"/>
+                <img class="image bg4" src="bg4.jpg" data-basecolor="#143d66"/>
+                <img class="image bg5" src="bg5.jpg" data-basecolor="#d27122"/>
+                <img class="image bg6" src="bg6.jpg" data-basecolor="#d98653"/>
+                <img class="image bg7" src="bg7.jpg" data-basecolor="#ffae00"/>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const images = document.querySelectorAll('.image');
+    const text = document.querySelector('h1');
+    
+    function changeBackground() {
+        text.style.setProperty('color', `${this.dataset.basecolor}`);
+        document.documentElement.style.setProperty('--bg',`url('${this.src}')`);
+        this.classList.add('active');
+    }
+
+    images.forEach(image => image.addEventListener('click',() => {
+        images.forEach(element => element.classList.remove('active'))
+    }));
+    images.forEach(image => image.addEventListener('click',changeBackground));
+</script>
+</html>
